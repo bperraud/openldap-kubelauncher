@@ -35,19 +35,22 @@ spec:
         fsGroup: {{ .Values.podSecurityContext.fsGroup }}
         fsGroupChangePolicy: "OnRootMismatch"
       {{- end }}
-      initContainers:
-        - name: volume-permissions
-          image: {{ include "openldap.image" . }}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["/bin/sh", "-c", "mkdir -p {{ .Values.persistence.mountPath }}/config {{ .Values.persistence.mountPath }}/data {{ .Values.persistence.mountPath }}/run && chown -R 1001:1001 {{ .Values.persistence.mountPath }} && chmod 700 {{ .Values.persistence.mountPath }}/config {{ .Values.persistence.mountPath }}/data"]
-          securityContext:
-            runAsUser: 0
-          volumeMounts:
-            - name: data
-              mountPath: {{ .Values.persistence.mountPath }}
-        {{- with .Values.initContainers }}
-        {{- toYaml . | nindent 8 }}
-        {{- end }}
+      {{/* initContainers: */}}
+      {{/*   - name: volume-permissions */}}
+      {{/*     image: {{ include "openldap.image" . }} */}}
+      {{/*     imagePullPolicy: {{ .Values.image.pullPolicy }} */}}
+      {{/*     command: ["/bin/sh", "-c", "mkdir -p {{ .Values.persistence.mountPath }}/config {{ .Values.persistence.mountPath }}/data {{ .Values.persistence.mountPath }}/run && chown -R 1001:1001 {{ .Values.persistence.mountPath }} && chmod 700 {{ .Values.persistence.mountPath }}/config {{ .Values.persistence.mountPath }}/data"] */}}
+      {{/*     resources: */}}
+      {{/*       limits: */}}
+      {{/*         memory: 2Gi */}}
+      {{/*     securityContext: */}}
+      {{/*       runAsUser: 0 */}}
+      {{/*     volumeMounts: */}}
+      {{/*       - name: data */}}
+      {{/*         mountPath: {{ .Values.persistence.mountPath }} */}}
+      {{/*   {{- with .Values.initContainers }} */}}
+      {{/*   {{- toYaml . | nindent 8 }} */}}
+      {{/*   {{- end }} */}}
       containers:
         - name: openldap
           image: {{ include "openldap.image" . }}

@@ -20,9 +20,11 @@ global:
 ## @param image.pullSecrets OpenLDAP image pull secrets
 image:
   registry: ghcr.io
-  repository: kubelauncher/openldap
+  repository: ryukenin/openldap
+  # repository: kubelauncher/openldap
   # renovate: image=ghcr.io/kubelauncher/openldap
-  tag: "2.6.12"
+  tag: "latest"
+  # tag: "2.6.12"
   digest: "sha256:8978aa002bc027c835a32535c5b722013be99948c33e02eecb28d866e99fa32e"
   pullPolicy: Always
   pullSecrets: []
@@ -83,7 +85,7 @@ resources: {}
 ## @param podSecurityContext.enabled Enable pod security context
 ## @param podSecurityContext.fsGroup Set filesystem group ID for the pod
 podSecurityContext:
-  enabled: true
+  enabled: false
   fsGroup: 1001
 
 ## @param containerSecurityContext.enabled Enable container security context
@@ -95,7 +97,7 @@ podSecurityContext:
 ## @param containerSecurityContext.capabilities.drop List of capabilities to drop
 ## @param containerSecurityContext.seccompProfile.type Set seccomp profile type for the container
 containerSecurityContext:
-  enabled: true
+  enabled: false
   runAsUser: 1001
   runAsGroup: 1001
   runAsNonRoot: true
